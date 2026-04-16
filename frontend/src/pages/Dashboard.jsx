@@ -13,7 +13,7 @@ export default function Dashboard() {
   const [showModal, setShowModal] = useState(false);
 
   const fetchEvents = async () => {
-    const res = await fetch("http://localhost:5000/events");
+    const res = await fetch("https://schedular-backend-pqgd.onrender.com/events");
     const data = await res.json();
     setEvents(data);
   };
@@ -30,13 +30,13 @@ export default function Dashboard() {
 
 const createEvent = async () => {
     if (editingId) {
-      await fetch(`http://localhost:5000/events/${editingId}`, {
+      await fetch(`https://schedular-backend-pqgd.onrender.com/events/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
       });
     } else {
-      await fetch("http://localhost:5000/events", {
+      await fetch("https://schedular-backend-pqgd.onrender.com/events", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
@@ -57,7 +57,7 @@ const createEvent = async () => {
 
   
   const deleteEvent = async (id) => {
-    await fetch(`http://localhost:5000/events/${id}`, {
+    await fetch(`https://schedular-backend-pqgd.onrender.com/events/${id}`, {
       method: "DELETE"
     });
   
