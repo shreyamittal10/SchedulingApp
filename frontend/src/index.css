@@ -1,0 +1,740 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY */
+body {
+  font-family: Inter, sans-serif;
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+/* APP LAYOUT */
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 250px;
+  background: white;
+  border-right: 1px solid #e5e7eb;
+  padding: 20px 16px;
+}
+
+.sidebar h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.sidebar a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #374151;
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.sidebar a:hover {
+  background: #f3f4f6;
+}
+
+.sidebar a.active {
+  background: #e5e7eb;
+  font-weight: 600;
+}
+
+/* MAIN */
+.main {
+  flex: 1;
+  padding: 40px 60px;
+  
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.header h1 {
+  font-size: 26px;   /* was 22/24 */
+  font-weight: 600;
+}
+
+.header p {
+  font-size: 15px;
+  color: #6b7280;
+  margin-top: 6px;
+}
+
+/* BUTTON */
+.new-btn {
+  background: black;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.new-btn:hover {
+  opacity: 0.9;
+}
+
+/* EVENT LIST CONTAINER */
+.event-list {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* EVENT ROW */
+.event-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.event-card:last-child {
+  border-bottom: none;
+}
+
+.event-card h3 {
+  font-size: 22px;     /* reduce from current */
+  font-weight: 600;    /* less bold */
+  color: #22272c;      /* softer than black */
+}
+
+/* LEFT SIDE */
+.event-left h3 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.slug {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+/* DURATION BADGE */
+.badge {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 12px;
+  background: #f3f4f6;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+/* RIGHT SIDE */
+.event-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ACTION BUTTONS */
+.event-right button,
+.event-right a {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #6b7280;
+  text-decoration: none;
+}
+
+.event-right button:hover,
+.event-right a:hover {
+  color: black;
+}
+
+/* TOGGLE */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 18px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #d1d5db;
+  border-radius: 34px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: 0.2s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 2px;
+  bottom: 2px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+input:checked + .slider {
+  background-color: black;
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+/* MODAL OVERLAY */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000;
+}
+
+/* MODAL BOX */
+.modal {
+  background: white;
+  width: 480px;
+  border-radius: 14px;
+  padding: 24px;
+}
+
+/* TITLE */
+.modal h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.modal-sub {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+/* INPUTS */
+.modal label {
+  display: block;
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.modal input,
+.modal textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.modal textarea {
+  resize: none;
+  height: 80px;
+}
+
+/* ACTION BUTTONS */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancel {
+  background: #f3f4f6;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.continue {
+  background: black;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.booking-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.booking-card {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1fr;
+  width: 1000px;
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+/* LEFT */
+.booking-left {
+  padding: 20px;
+  border-right: 1px solid #eee;
+}
+
+/* MIDDLE */
+.booking-middle {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* RIGHT */
+.booking-right {
+  padding: 20px;
+  border-left: 1px solid #eee;
+}
+
+/* SLOTS */
+.slots {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.slot {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+}
+
+.slot:hover {
+  border-color: black;
+}
+
+.slot.active {
+  background: black;
+  color: white;
+}
+
+.booking-form {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+}
+
+.booking-form h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.booking-form input,
+.booking-form textarea {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.booking-form textarea {
+  height: 90px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.form-actions button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.form-actions button:first-child {
+  background: #f3f4f6;
+}
+
+.form-actions button:last-child {
+  background: black;
+  color: white;
+}
+
+.react-calendar {
+  width: 100%;
+  border: none;
+  font-family: inherit;
+}
+
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+}
+
+.react-calendar__month-view__weekdays {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.react-calendar__tile {
+  padding: 12px 0;
+  border-radius: 10px;
+}
+
+.react-calendar__tile--active {
+  background: black !important;
+  color: white;
+}
+
+.react-calendar__tile:hover {
+  background: #f0f0f0;
+}
+
+.booking-left h3 {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 10px;
+}
+
+.booking-left h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 6px 0 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: orange;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.selected-info {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.booking-card.form-view {
+  grid-template-columns: 1fr 1.2fr;
+}
+
+/* SUCCESS PAGE */
+.success-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f3f4f6;
+}
+
+.success-card {
+  width: 520px;
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+/* ICON */
+.success-icon {
+  width: 60px;
+  height: 60px;
+  margin: auto;
+  background: #dcfce7;
+  color: #16a34a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+/* TEXT */
+.success-card h2 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.success-sub {
+  color: #6b7280;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.success-details {
+  margin-top: 20px;
+}
+
+/* EACH ROW */
+.row {
+  display: grid;
+  grid-template-columns: 100px 1fr; /* 🔥 FIX ALIGNMENT */
+  align-items: start;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+/* LEFT LABEL */
+.row span:first-child {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* RIGHT CONTENT */
+.row span:last-child {
+  color: #111827;
+  line-height: 1.6;
+}
+
+/* EMAIL STYLE */
+.email {
+  font-size: 13px;
+}
+
+/* DIVIDER */
+.success-card hr {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 18px 0;
+}
+
+/* FOOTER */
+.success-footer {
+  font-size: 14px;
+  color: #6b7280;
+  text-align: left; /* 🔥 important */
+}
+
+.success-footer span {
+  color: black;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.bookings-container {
+  /* padding: 40px 60px; */
+  width: 100%;
+
+}
+
+/* SECTION TITLE */
+.section-title {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* EMPTY TEXT */
+.empty {
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+
+
+
+
+/* GROUP CONTAINER */
+.booking-group {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+/* NEXT LABEL */
+.group-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  padding: 12px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+/* ITEM */
+.booking-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.booking-item:last-child {
+  border-bottom: none;
+}
+
+/* LEFT */
+.left {
+  width: 140px;
+}
+
+.left .date {
+  font-weight: 600;
+}
+
+.left .time {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* MIDDLE */
+.middle {
+  flex: 1;
+}
+
+.middle .title {
+  font-weight: 500;
+  color: #111827;
+}
+
+.middle .notes {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.middle .meta {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 6px;
+}
+
+/* RIGHT */
+.right {
+  display: flex;
+  gap: 10px;
+}
+
+.right button {
+  background: #f3f4f6;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.right button:hover {
+  background: #e5e7eb;
+}
+
+.right .danger {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.right .danger:hover {
+  background: #fee2e2;
+}
+
+/* EMPTY STATE */
+.empty-state {
+  margin-top: 10px;
+}
+
+.empty-box {
+  border: 1px dashed #e5e7eb;
+  border-radius: 12px;
+  padding: 60px 20px;
+  text-align: center;
+  background: white;
+}
+
+.empty-icon {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #9ca3af;
+}
+
+.empty-box h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.empty-box p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.tabs button {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  color: #374151;
+}
+
+.tabs button.active {
+  background: #e5e7eb;
+  font-weight: 600;
+}
+
+.success-footer span {
+  color: black;
+  font-weight: 500;
+  cursor: pointer;
+}
