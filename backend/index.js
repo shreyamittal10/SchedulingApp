@@ -19,37 +19,46 @@ const pool = new Pool({
   },
 });
 
-await pool.query(`
-  CREATE TABLE IF NOT EXISTS events (
-    id SERIAL PRIMARY KEY,
-    title TEXT,
-    description TEXT,
-    duration INTEGER,
-    slug TEXT UNIQUE
-  );
-`);
+async function initDB() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS events (
+        id SERIAL PRIMARY KEY,
+        title TEXT,
+        description TEXT,
+        duration INTEGER,
+        slug TEXT UNIQUE
+      );
+    `);
 
-await pool.query(`
-  CREATE TABLE IF NOT EXISTS availability (
-    id SERIAL PRIMARY KEY,
-    day TEXT,
-    start_time TEXT,
-    end_time TEXT
-  );
-`);
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS availability (
+        id SERIAL PRIMARY KEY,
+        day TEXT,
+        start_time TEXT,
+        end_time TEXT
+      );
+    `);
 
-await pool.query(`
-  CREATE TABLE IF NOT EXISTS bookings (
-    id SERIAL PRIMARY KEY,
-    name TEXT,
-    email TEXT,
-    date DATE,
-    time TEXT,
-    event_id INTEGER REFERENCES events(id),
-    notes TEXT
-  );
-`);
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS bookings (
+        id SERIAL PRIMARY KEY,
+        name TEXT,
+        email TEXT,
+        date DATE,
+        time TEXT,
+        event_id INTEGER REFERENCES events(id),
+        notes TEXT
+      );
+    `);
 
+    console.log("✅ Tables created");
+  } catch (err) {
+    console.error("❌ DB init error:", err);
+  }
+}
+
+initDB();
 
 app.get("/test-db", async (req, res) => {
   try {
