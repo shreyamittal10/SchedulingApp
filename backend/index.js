@@ -21,46 +21,43 @@ const pool = new Pool({
 
 async function initDB() {
   try {
-    // await pool.query(`
-    //   CREATE TABLE IF NOT EXISTS event_types (
-    //     id SERIAL PRIMARY KEY,
-    //     title VARCHAR(255) NOT NULL,
-    //     description TEXT,
-    //     duration INTEGER NOT NULL,
-    //     slug VARCHAR(255) UNIQUE NOT NULL,
-    //     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    //   );
-    // `);
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS event_types (
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        description TEXT,
+        duration INTEGER NOT NULL,
+        slug VARCHAR(255) UNIQUE NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
 
-    // await pool.query(`
-    //   CREATE TABLE IF NOT EXISTS availability (
-    //     id SERIAL PRIMARY KEY,
-    //     day_of_week INTEGER NOT NULL , -- 0 (Sunday) to 6 (Saturday),
-    //     start_time TIME NOT NULL,
-    //     end_time TIME NOT NULL
-    //   );
-    // `);
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS availability (
+        id SERIAL PRIMARY KEY,
+        day_of_week INTEGER NOT NULL , -- 0 (Sunday) to 6 (Saturday),
+        start_time TIME NOT NULL,
+        end_time TIME NOT NULL
+      );
+    `);
 
-    // await pool.query(`
-    //   CREATE TABLE IF NOT EXISTS bookings (
-    //     id SERIAL PRIMARY KEY,
-    //     name VARCHAR(255) NOT NULL,
-    //     email VARCHAR(255) NOT NULL,
-    //     date DATE NOT NULL,
-    //     time TIME NOT NULL,
-    //     event_id INTEGER REFERENCES event_types(id) ON DELETE CASCADE,
-    //     notes TEXT
-    //   );
-    // `);
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS bookings (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        date DATE NOT NULL,
+        time TIME NOT NULL,
+        event_id INTEGER REFERENCES event_types(id) ON DELETE CASCADE,
+        notes TEXT
+      );
+    `);
 
-    // await pool.query(`
-    //   ALTER TABLE bookings
-    //   ADD CONSTRAINT unique_booking UNIQUE (event_id, date, time);
-    // `);
+    await pool.query(`
+      ALTER TABLE bookings
+      ADD CONSTRAINT unique_booking UNIQUE (event_id, date, time);
+    `);
 
-    await pool.query(`DROP TABLE IF EXISTS bookings CASCADE;`);
-await pool.query(`DROP TABLE IF EXISTS availability CASCADE;`);
-await pool.query(`DROP TABLE IF EXISTS event_types CASCADE;`);
     console.log("✅ Tables created");
   } catch (err) {
     console.error("❌ DB init error:", err);
