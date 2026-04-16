@@ -24,10 +24,10 @@ async function initDB() {
     await pool.query(`
       CREATE TABLE IF NOT EXISTS event_types (
         id SERIAL PRIMARY KEY,
-        title TEXT,
+        title VARCHAR(255) NOT NULL,
         description TEXT,
-        duration INTEGER,
-        slug TEXT UNIQUE,
+        duration INTEGER NOT NULL,
+        slug VARCHAR(255) UNIQUE NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
@@ -35,22 +35,27 @@ async function initDB() {
     await pool.query(`
       CREATE TABLE IF NOT EXISTS availability (
         id SERIAL PRIMARY KEY,
-        day TEXT,
-        start_time TEXT,
-        end_time TEXT
+        day_of_week INTEGER NOT NULL , -- 0 (Sunday) to 6 (Saturday),
+        start_time TIME NOT NULL,
+        end_time TIME NOT NULL
       );
     `);
 
     await pool.query(`
       CREATE TABLE IF NOT EXISTS bookings (
         id SERIAL PRIMARY KEY,
-        name TEXT,
-        email TEXT,
-        date DATE,
-        time TEXT,
-        event_id INTEGER REFERENCES event_types(id),
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        date DATE NOT NULL,
+        time TIME NOT NULL,
+        event_id INTEGER REFERENCES event_types(id) ON DELETE CASCADE,
         notes TEXT
       );
+    `);
+
+    await pool.query(`
+      ALTER TABLE bookings
+      ADD CONSTRAINT unique_booking UNIQUE (event_id, date, time);
     `);
 
     console.log("✅ Tables created");
