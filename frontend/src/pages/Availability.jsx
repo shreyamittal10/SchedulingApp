@@ -14,7 +14,7 @@ export default function Availability() {
   const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
   const fetchAvailability = async () => {
-    const res = await fetch("http://localhost:5000/availability");
+    const res = await fetch("https://schedular-backend-pqgd.onrender.com/availability");
     const d = await res.json();
     setData(d);
   };
@@ -30,7 +30,7 @@ export default function Availability() {
       return;
     }
   
-    await fetch("http://localhost:5000/availability", {
+    await fetch("https://schedular-backend-pqgd.onrender.com/availability", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
