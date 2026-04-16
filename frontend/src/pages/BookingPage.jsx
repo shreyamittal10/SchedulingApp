@@ -41,7 +41,7 @@ const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEvent = async () => {
-      const res = await fetch(`http://localhost:5000/events/${slug}`);
+      const res = await fetch(`https://schedular-backend-pqgd.onrender.com/events/${slug}`);
       const data = await res.json();
       setEvent(data);
     };
@@ -64,7 +64,7 @@ const navigate = useNavigate();
     console.log("Using event id:", event.id);
 
     const res = await fetch(
-      `http://localhost:5000/slots?event_id=${event.id}&date=${date}`
+      `https://schedular-backend-pqgd.onrender.com/slots?event_id=${event.id}&date=${date}`
     );
 
     const data = await res.json();
@@ -74,12 +74,12 @@ const navigate = useNavigate();
 
 const bookSlot = async () => {
     if (existingBooking) {
-      await fetch(`http://localhost:5000/bookings/${existingBooking.id}`, {
+      await fetch(`https://schedular-backend-pqgd.onrender.com/bookings/${existingBooking.id}`, {
         method: "DELETE"
       });
     }
   
-    const res = await fetch("http://localhost:5000/bookings", {
+    const res = await fetch("https://schedular-backend-pqgd.onrender.com/bookings", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
