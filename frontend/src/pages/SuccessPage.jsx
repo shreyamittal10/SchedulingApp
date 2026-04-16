@@ -35,7 +35,7 @@ export default function SuccessPage() {
   
   const handleCancel = async () => {
     try {
-      await fetch(`http://localhost:5000/bookings/${state.id}`, {
+      await fetch(`https://schedular-backend-pqgd.onrender.com/bookings/${state.id}`, {
         method: "DELETE"
       });
   
