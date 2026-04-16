@@ -8,7 +8,7 @@ export default function Bookings() {
   const navigate = useNavigate();
 
   const fetchBookings = async () => {
-    const res = await fetch("http://localhost:5000/bookings");
+    const res = await fetch("https://schedular-backend-pqgd.onrender.com/bookings");
     const data = await res.json();
     setBookings(data);
   };
@@ -21,7 +21,7 @@ export default function Bookings() {
     const confirmDelete = window.confirm("Cancel this booking?");
     if (!confirmDelete) return;
   
-    await fetch(`http://localhost:5000/bookings/${id}`, {
+    await fetch(`https://schedular-backend-pqgd.onrender.com/bookings/${id}`, {
       method: "DELETE"
     });
   
