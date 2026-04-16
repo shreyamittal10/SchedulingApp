@@ -22,12 +22,13 @@ const pool = new Pool({
 async function initDB() {
   try {
     await pool.query(`
-      CREATE TABLE IF NOT EXISTS events (
+      CREATE TABLE IF NOT EXISTS event_types (
         id SERIAL PRIMARY KEY,
         title TEXT,
         description TEXT,
         duration INTEGER,
-        slug TEXT UNIQUE
+        slug TEXT UNIQUE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
 
@@ -47,7 +48,7 @@ async function initDB() {
         email TEXT,
         date DATE,
         time TEXT,
-        event_id INTEGER REFERENCES events(id),
+        event_id INTEGER REFERENCES event_types(id),
         notes TEXT
       );
     `);
